@@ -1,0 +1,192 @@
+/**
+ * Design tokens — Project AURA
+ *
+ * Every value here traces back to a specific instruction in the
+ * Design Bible (colors: Part 3, typography: Part 4, spacing: Part 5,
+ * radius: Part 2, motion: Part 7). This file defines raw tokens only,
+ * per Engineering Architecture Part 2: "styles/ — design tokens
+ * exclusively. Never one-off magic numbers." Nothing in this file
+ * makes a component or layout decision.
+ */
+
+@theme {
+  /* =================================================================
+   * COLOR — Design Bible Part 3
+   *
+   * Color communicates status (pass/flag/in-progress), never mood or
+   * brand. Exactly two functional colors exist in the whole system
+   * (verified, flagged); everything else is ink, background, or a
+   * warm neutral scale between them. Tailwind's full default palette
+   * (reds, greens, purples, etc.) is removed below so that restraint
+   * is enforced by the toolchain itself, not left to convention that
+   * could drift — the same reasoning the Engineering Architecture
+   * applies elsewhere ("enforced structurally, not by convention").
+   *
+   * Light mode only: Design Bible Part 3 names light mode "the
+   * primary, default design target" and treats dark mode as an
+   * optional future alternate ("can exist"), not a commitment — it
+   * doesn't appear anywhere in the Part 11 milestone roadmap. Adding
+   * invented dark-mode hex values now would mean designing something
+   * neither document actually specifies, so it's deferred rather than
+   * guessed at.
+   * ================================================================= */
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  /* Ink — near-black, warm-leaning charcoal, not pure black.
+     Nearly all text and structural linework. */
+  --color-ink: #1c1917;
+
+  /* Background hierarchy — warm, paper-like off-white base, and a
+     single, slightly darker neutral for the one "raised" surface
+     (an open report). No more than these two levels, ever, per the
+     Bible's two-layer depth rule. */
+  --color-background: #f7f4ef;
+  --color-surface: #efebe3;
+
+  /* Neutral scale — secondary text, dividers, and disabled/inactive
+     states only. Never used to draw attention. neutral-500 is the
+     only step verified at AA (4.5:1) for text; 100–400 are for
+     non-text uses only (dividers, disabled fills) — WCAG doesn't
+     require disabled content to meet text contrast, and the Bible
+     explicitly scopes 100–400 to exactly those non-text uses. */
+  --color-neutral-100: #e5e0d8; /* hairline dividers, subtle fills */
+  --color-neutral-200: #cfc8bc; /* borders on inactive elements */
+  --color-neutral-300: #a69c8d; /* disabled text/icons, large-scale only */
+  --color-neutral-400: #8a8071; /* placeholder-weight text, large-scale only */
+  --color-neutral-500: #5c5647; /* secondary body text — AA-safe */
+
+  /* The two semantic colors. Verified-blue appears only at the
+     moment something is specifically confirmed. Flagged-orange
+     appears only for a genuine, disclosed limitation. Neither is
+     ever decorative (Design Bible Part 3; Principle 8). Chosen for
+     separation under deuteranopia/protanopia, per Part 3's
+     accessibility note. Both verified at 4.5:1+ against background
+     and paired with a white foreground for filled use (e.g. the
+     sign-off stamp) at 5.7:1+. */
+  --color-verified: #1e3a8a;
+  --color-on-verified: #ffffff;
+  --color-flagged: #a84a2c;
+  --color-on-flagged: #ffffff;
+
+  /* =================================================================
+   * TYPOGRAPHY — Design Bible Part 4
+   *
+   * Two families for maximum contrast between "claim" and "evidence,"
+   * plus a monospace face reserved exclusively for quantified data.
+   * The Design Bible describes each family's register (an editorial
+   * serif for display, a humanist sans for body, a monospace for
+   * metrics) but never names a specific typeface — choosing the
+   * actual font is a real design decision the document leaves open,
+   * so it isn't made here. These three tokens hold system-font
+   * fallback stacks by role for now; Milestone 3 ("fonts loaded per
+   * Part 6") loads the real, chosen typefaces via next/font and
+   * updates only these three values — every other token in this
+   * file, and every consumer of --font-display/body/mono, is
+   * unaffected by that later choice.
+   * ================================================================= */
+  --font-display: ui-serif, Georgia, "Times New Roman", serif;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* Scale — modest and fluid rather than dramatic breakpoint jumps
+     (Part 4 "Responsive scaling"). Named for where each is used in
+     the report hierarchy (Part 4 "Hierarchy in practice"), so usage
+     stays semantic rather than size-based. Line heights are generous
+     on reading content (body ~1.6x) per Part 4 "Line height &
+     reading rhythm." */
+  --text-display: clamp(2rem, 1.6rem + 2vw, 3rem);
+  --text-display--line-height: 1.15;
+
+  --text-headline: clamp(1.25rem, 1.1rem + 0.8vw, 1.75rem);
+  --text-headline--line-height: 1.3;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.4;
+
+  --text-code: 0.875rem;
+  --text-code--line-height: 1.5;
+
+  /* Weight — a deliberately narrow set per Part 4 "Font weights":
+     one for body, one bolder for display/headline, one for emphasis
+     within body text. The default ladder (thin through black) is
+     removed first, the same structural-enforcement pattern used for
+     color above, so the other six weights are never reachable by
+     accident. --font-weight-bold is set to 600, not Tailwind's
+     default 700, since the Bible calls for "bolder," not maximum,
+     weight — hierarchy should come from size and family first. */
+  --font-weight-*: initial;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
+
+  /* Tracking — tight-to-neutral on display type (avoiding the
+     wide-tracked "minimalist SaaS headline" cliché), neutral on
+     body, and very slightly open on all-caps captions/labels for
+     legibility at small size (Part 4 "Letter spacing"). Named by
+     typographic role rather than reusing Tailwind's generic
+     tight/wide keys, so usage stays tied to the report hierarchy. */
+  --tracking-display: -0.01em;
+  --tracking-body: 0em;
+  --tracking-caption: 0.04em;
+
+  /* =================================================================
+   * SPACING — Design Bible Part 5
+   *
+   * "Vertical rhythm built on a consistent spacing scale — a single
+   * base unit multiplied consistently (e.g., 8px-based steps) —
+   * applied uniformly across every stage." Tailwind v4 derives its
+   * entire spacing utility scale (p-*, gap-*, m-*, w-*, etc.) from
+   * this one variable, so re-basing it here re-bases every spacing
+   * utility in the system at once — exactly the "single scale, no
+   * arbitrary one-off values" the Bible asks for (Principle 28).
+   * ================================================================= */
+  --spacing: 0.5rem; /* 8px base unit */
+
+  /* =================================================================
+   * RADIUS — Design Bible Part 2 / Principle 10
+   *
+   * "A single, near-imperceptible radius, system-wide... one radius,
+   * everywhere, no exceptions." The default scale is removed so no
+   * heavier, "friendly" radius is reachable by accident anywhere in
+   * the codebase. `rounded-full` is kept only for true circles — a
+   * different geometric idea (a status dot, not a softened corner)
+   * than the hairline radius, not an exception to the rule.
+   * ================================================================= */
+  --radius-*: initial;
+  --radius-none: 0;
+  --radius-hairline: 0.125rem; /* 2px — the only corner radius in the system */
+  --radius-full: 9999px;
+
+  /* =================================================================
+   * MOTION — Design Bible Part 7 / Engineering Architecture Part 5
+   *
+   * "Speed: fast... entrances and confirmations measured in a couple
+   * hundred milliseconds... a small set of standard durations (a
+   * short one for micro-confirmations, a slightly longer one for
+   * page transitions)." Easing is overridden below rather than left
+   * as Tailwind's defaults, so `ease-in` / `ease-out` resolve to
+   * AURA's one approved curve family everywhere they're used —
+   * "no springy overshoot, no bounce" (Part 7), and never a
+   * hand-typed bezier duplicated per component (Principle 5 / 25).
+   *
+   * Durations aren't a Tailwind theme namespace with generated
+   * utilities (there's no built-in `duration-fast` mechanism), so
+   * these stay as plain custom properties for components and Framer
+   * Motion variants (components/motion/, Milestone 9) to reference
+   * directly — e.g. `transition-duration: var(--duration-fast)`.
+   * --duration-instant is the reduced-motion value: an animated
+   * element switches to it entirely, never just "faster" (Design
+   * Bible Part 9).
+   * ================================================================= */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1); /* things appearing */
+  --ease-in: cubic-bezier(0.4, 0, 1, 1); /* things leaving */
+
+  --duration-instant: 0ms; /* reduced motion: state changes, no animation */
+  --duration-fast: 120ms; /* micro-confirmations (tap state, tier reveal) */
+  --duration-base: 220ms; /* page transitions, the sign-off stamp */
+}

@@ -6,23 +6,31 @@ Architecture, Design Bible, Production Blueprint, Engineering Architecture).
 This README documents build status only — it does not restate or interpret
 those decisions.
 
-## Status: Sprint 0A — project scaffold
+## Status: Sprint 0B — design token system
 
-This sprint sets up tooling only. No pages, components, or content have been
-built yet.
+This sprint defines the token layer only (`styles/tokens.css`). No pages,
+components, or fonts have been built or loaded yet — see that file's
+comments for exactly how each token traces back to the Design Bible.
 
-**Done:**
+**Done (Sprint 0A):**
 
 - Next.js (App Router) + TypeScript + Tailwind CSS scaffold
 - ESLint + Prettier, wired together (`eslint-config-prettier`)
 - Folder structure per Engineering Architecture, Part 2
 - GitHub Actions CI: lint + type-check (Milestone 1 scope)
 
+**Done (Sprint 0B):**
+
+- Color, typography, spacing, radius, and motion tokens (Milestone 2)
+- Tailwind's default color palette and radius scale removed, so only
+  the Design Bible's values are reachable through utility classes
+
 **Not yet built** (see Engineering Architecture, Part 11 for the full
 milestone plan):
 
-- Design tokens (Milestone 2)
-- Root layout typography/fonts, reading-column layout (Milestone 3)
+- Real typefaces loaded via `next/font`, root layout, reading-column
+  layout (Milestone 3) — `--font-display`/`--font-body`/`--font-mono`
+  currently hold system-font placeholders
 - Content model + validation (Milestone 4)
 - Landing, Docket, Inspection, Foundation, Contact pages (Milestones 5–8)
 - Load Test interaction (Milestone 7)

@@ -1,8 +1,2 @@
 @import "tailwindcss";
-
-/*
- * Design tokens (colors, type scale, spacing, radius, motion durations)
- * are defined in Milestone 2 from the Design Bible, either here or in
- * styles/tokens.css per Part 2 of the Engineering Architecture. No
- * token or theme decisions are made in Sprint 0A.
- */
+@import "../styles/tokens.css";
