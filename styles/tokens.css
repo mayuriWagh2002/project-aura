@@ -148,6 +148,21 @@
   --spacing: 0.5rem; /* 8px base unit */
 
   /* =================================================================
+   * LAYOUT — Design Bible Part 5
+   *
+   * "A single, fairly narrow reading-optimized max-width for body
+   * content (closer to an editorial article's column width than a
+   * typical wide 'web app' layout)... a consistent container width...
+   * applied uniformly across every stage of the experience
+   * architecture, so that the Docket, a structure's report, and the
+   * Foundation Report all feel like the same document." One token,
+   * one width, used everywhere — the same "single scale, no arbitrary
+   * one-off values" discipline as spacing above, applied to the
+   * container itself.
+   * ================================================================= */
+  --container-reading: 48rem; /* 768px — editorial column width */
+
+  /* =================================================================
    * RADIUS — Design Bible Part 2 / Principle 10
    *
    * "A single, near-imperceptible radius, system-wide... one radius,
